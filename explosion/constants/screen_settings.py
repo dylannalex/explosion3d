@@ -1,0 +1,4 @@
+WINDOW_TITLE = "Explosion Animation"
+HEIGHT = 750
+WIDTH = 750
+RESIZABLE = True
