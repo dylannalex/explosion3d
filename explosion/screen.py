@@ -67,6 +67,7 @@ class Explosion:
         self.x_expansion = x_expansion
         self.y_expansion = y_expansion
         self._particles = []
+        self.sound = pygame.mixer.Sound("explosion/sounds/explosion.wav")
         self.win = win
 
     def set_particles(self, mx: int, my: int) -> None:

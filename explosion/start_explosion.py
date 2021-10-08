@@ -10,6 +10,7 @@ def start_animation(screen, explosion, clock) -> None:
             if event.type == pygame.QUIT:
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
+                explosion.sound.play()
                 mx, my = event.pos
                 explosion.set_particles(mx, my)
                 screen.clear()
