@@ -25,12 +25,23 @@ class Screen:
 
 
 class Particle:
-    def __init__(self, radius: int, x: int, y: int, velocity: list, color: list):
+    def __init__(self, radius: int, x: int, y: int, velocity: list, color: list, wall_collision: bool = True):
         self.x = x
         self.y = y
         self.z = radius
         self.velocity = velocity
         self.color = color
+        self.wall_collision = wall_collision
+
+    def _check_collision(self, win_width):
+        particle_radius = self.z/2
+        if self.x - particle_radius <= 0:
+            self.x = particle_radius
+            self.velocity[0] *= -1
+        if self.x + particle_radius >= win_width:
+            self.x = win_width - particle_radius
+            self.velocity[0] *= -1
+            
 
     def move(self, win) -> None:
         """
@@ -48,8 +59,11 @@ class Particle:
         self.y += self.velocity[1] * animation.TPF * physics.CONVERSION * -1
         self.z += self.velocity[2] * animation.TPF * physics.CONVERSION
 
-        pygame.draw.circle(win, self.color, (self.x, self.y), self.z)
+        if self.wall_collision:
+            win_width, _ = pygame.display.get_surface().get_size()
+            self._check_collision(win_width)
 
+        pygame.draw.circle(win, self.color, (self.x, self.y), self.z)
 
 class Explosion:
     Y_LIMIT = 1000
